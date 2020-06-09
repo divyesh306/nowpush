@@ -73,17 +73,6 @@ exports.updateStatus = async function (id,friendsdata){
         findfriends.status = friendsdata.status;
         findfriends.save();
         return await findfriends;
-        // if(findfriends == null){
-        //     var fd = await Friends.findById(id,function(err,fri){
-        //         if(err)
-        //             return err;
-
-        //     fri.sender_id = friendsdata.sender_id;
-        //     fri.status = friendsdata.status;
-        //     fri.save();
-        //     })  
-        //     return await fd;     
-        // }
     } catch (error) {
         return error;
     }   
