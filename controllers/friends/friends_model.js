@@ -10,6 +10,10 @@ let schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    status:{
+        type:String,
+        required:true
+    },
     create_at:{
         type:Date,
         default:Date.now
