@@ -26,9 +26,15 @@ exports.update = function(req,res,next){
     .catch(err=>next({err:err}));
 }
 
-/* ----------------- Get StatusWise List ---------------*/
+/* ----------------- Get Status Wise List ---------------*/
 exports.getPendingList = function(req,res,next){
     friendsService.getpendinglist(req.params.friedsid)
+    .then(friends => friends ? res.json(friends) : res.json({msg : "No Requested Found"}))
+    .catch(err=>next({err:err}));
+}
+
+exports.fetchpendinglist = function(req,res,next){
+    friendsService.fetchpendinglist(req.params.friedsid)
     .then(friends => friends ? res.json(friends) : res.json({msg : "No Requested Found"}))
     .catch(err=>next({err:err}));
 }

@@ -24,7 +24,7 @@ exports.getSingeluser =async function(id){
 
 exports.getpendinglist = async function(id){
     try {
-        var data = await Friends.find({sender_id:id , status : 'pending'})
+        var data = await Friends.find({sender_id:id , status : 'Pending'})
         .populate('reciver_id',['username','email','image_url'])
         .exec();
         return await data; 
@@ -32,9 +32,21 @@ exports.getpendinglist = async function(id){
         return error;
     }
 }
+
+exports.fetchpendinglist = async function(id){
+    try {
+        var data = await Friends.find({reciver_id:id , status : 'Pending'})
+        .populate('sender_id',['username','email','image_url'])
+        .exec();
+        return await data; 
+    } catch (error) {
+        return error;
+    }
+}
+
 exports.getacceptlist = async function(id){
     try {
-        var data = await Friends.find({sender_id:id , status : 'accept'})
+        var data = await Friends.find({sender_id:id , status : 'Accept'})
         .populate('reciver_id',['username','email','image_url'])
         .exec();
         return await data; 
