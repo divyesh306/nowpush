@@ -48,16 +48,22 @@ exports.fetchpendinglist = async function(id){
 exports.searchFriends = async function(friendsdata){
     try {
         var userdata = await User.findOne({email:friendsdata.email});
-        if(userdata != null)
+        if (userdata == null)
+            return await {status : 200 , msg : "User Not found" , data : []};
+        if(userdata != null){
+            if(userdata._id == friendsdata.sender_id)
+                return await {status : 200 , msg : "Same User Not Send Request" , data : []};
+                
             var friends = await Friends.find({ $or : [ {sender_id:friendsdata.sender_id , reciver_id:userdata._id} , {sender_id:userdata._id, reciver_id:friendsdata.sender_id}]})
             .populate('sender_id',['username','email','image_url'])
             .populate('reciver_id',['username','email','image_url'])
             .exec();
-             if(friends == null)
-                return await "Friends not found";
+                if (friends.length == 0)
+                    return await {status : 200 , msg : "Friend Not found" , data : []};
+            
+            return await {status : 200 , msg : "Friend found" , data : friends};
+        }
 
-            return await friends;
-        
     } catch (error) {
         return error;
     }

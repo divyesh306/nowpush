@@ -9,7 +9,7 @@ exports.getAll = function(req,res,next){
 
 exports.findSingeldata = function(req,res,next){  
     friendsService.getSingeluser(req.params.friedsid)
-    .then(friends => friends ? res.json(friends) : res.json({msg : "Friends Not Found"}))
+    .then(friends => friends ? res.json(friends) : res.json.status ({msg : "Friends Not Found"}))
     .catch(err=>next({err : err}));
 }
 
@@ -27,7 +27,7 @@ exports.update = function(req,res,next){
 }
 exports.searchFriends = function(req,res,next){
     friendsService.searchFriends(req.body)
-        .then(friends => friends ? res.json(friends) : res.json({msg:"User not Fount"}))
+        .then(friends => res.json(friends))
         .catch(err => next({err:err}));
 }
 
