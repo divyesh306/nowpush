@@ -49,7 +49,10 @@ exports.searchFriends = async function(friendsdata){
     try {
         var userdata = await User.findOne({email:friendsdata.email});
         if(userdata != null)
-            var friends = await Friends.findOne({sender_id:friendsdata.sender_id , reciver_id:userdata._id});
+            var friends = await Friends.find({ $or : [ {sender_id:friendsdata.sender_id , reciver_id:userdata._id} , {sender_id:userdata._id, reciver_id:friendsdata.sender_id}]})
+            .populate('sender_id',['username','email','image_url'])
+            .populate('reciver_id',['username','email','image_url'])
+            .exec();
              if(friends == null)
                 return await "Friends not found";
 
