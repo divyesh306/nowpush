@@ -21,9 +21,14 @@ exports.new = function(req,res,next){
 }
 
 exports.update = function(req,res,next){
-    friendsService.updateStatus(req.params.friedsid,req.body)
+    friendsService.updateStatus(req.body)
     .then(friends => res.json(friends))
     .catch(err=>next({err:err}));
+}
+exports.searchFriends = function(req,res,next){
+    friendsService.searchFriends(req.body)
+        .then(friends => friends ? res.json(friends) : res.json({msg:"User not Fount"}))
+        .catch(err => next({err:err}));
 }
 
 /* ----------------- Get Status Wise List ---------------*/

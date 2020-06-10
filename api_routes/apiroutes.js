@@ -17,7 +17,8 @@ router.get('/listfriends',friendsController.getAll); //List Of all friends List
 router.get('/pendinglist/:friedsid',friendsController.getPendingList); // Particular sender user pending request List
 router.get('/fetchpendinglist/:friedsid',friendsController.fetchpendinglist); // Particular user Fetch pending request List
 router.get('/acceptlist/:friedsid',friendsController.getAcceptList); // Particular user accept request list
-router.put('/updatestatus/:friedsid',friendsController.update); // Request status update 
+router.post('/searchFriends',friendsController.searchFriends); // Search User Request status  
+router.post('/updatestatus',friendsController.update); // Request status update 
 router.delete('/deletefriends/:friedsid',friendsController._delete); // Delete Request  
 router.get('/friendsList/:friedsid',friendsController.findSingeldata) // Particular User All request 
 
