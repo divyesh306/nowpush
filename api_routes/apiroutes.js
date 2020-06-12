@@ -5,6 +5,8 @@ let auth = require('../config/middelware');
 
 let userController = require('../controllers/users/user_controller');
 let friendsController = require('../controllers/friends/friends_controller');
+let chatcontroller = require('../controllers/chat/chat_controller');
+let chatmsgcontroller = require('../controllers/chat_msg/chatmsg_controller');
 
 router.post('/register',userController.create); // User Register and Login
 router.get('/getuser',userController.getuser); // Full User List 
@@ -21,5 +23,11 @@ router.post('/searchFriends',friendsController.searchFriends); // Search User Re
 router.post('/updatestatus',friendsController.update); // Request status update 
 router.delete('/deletefriends/:friedsid',friendsController._delete); // Delete Request  
 router.get('/friendsList/:friedsid',friendsController.findSingeldata) // Particular User All request 
+
+router.post('/creatroom',chatcontroller.createRoom) // Create Chat room Between 2 User
+router.post('/deleteroom/:chatroomid',chatcontroller._delete) // Delete Chat room Between 2 User
+
+router.post('/addchat',chatmsgcontroller.addChat); // Store Chat On DB
+router.get('/getmsgs/:chatroomid',chatmsgcontroller.getChatroom);
 
 module.exports = router;

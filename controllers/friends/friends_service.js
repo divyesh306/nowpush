@@ -58,9 +58,20 @@ exports.searchFriends = async function(friendsdata){
             .populate('sender_id',['username','email','image_url'])
             .populate('reciver_id',['username','email','image_url'])
             .exec();
+
+            var datauser =[{
+                _id:userdata._id,
+                username:userdata.username,
+                email:userdata.email,
+                image_url:userdata.image_url,
+                status:'add friend',
+            }];
                 if (friends.length == 0)
-                    return await {status : 200 , msg : "Friend Not found" , data : []};
+                    return await {status : 200 , msg : "Friend Not found" , data : datauser};
             
+                if(friends.status == "Accept")
+                    return await {status : 200 , msg : "You Both Are Already Friend" , data : friends};
+
             return await {status : 200 , msg : "Friend found" , data : friends};
         }
 
